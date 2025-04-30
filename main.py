@@ -9,13 +9,14 @@ def main(page: ft.Page):
     def get_stock_data(e):
         symbol = stock_symbol.value.strip().upper()
         try:
-            data = yf.Ticker(symbol).history(period="1y")
+            data = yf.Ticker(symbol.strip()).history(period="1y")
             if not data.empty:
-                result.value = f"Latest Price for {symbol}: {data['Close'].iloc[-1]}"
+                latest_price = data['Close'].iloc[-1]
+                result.value = f"Latest Price for {symbol}: {latest_price:.2f}"
             else:
                 result.value = "No data available. Check the symbol."
         except Exception as ex:
-            result.value = f"Error: {ex}"
+            result.value = f"Error fetching data: {str(ex)}"
 
         page.update()
 
