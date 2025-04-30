@@ -9,7 +9,7 @@ def main(page: ft.Page):
     def get_stock_data(e):
         symbol = stock_symbol.value.strip().upper()
         try:
-            data = yf.Ticker(symbol).history(period="1d")
+            data = yf.Ticker(symbol).history(period="1y")
             if not data.empty:
                 result.value = f"Latest Price for {symbol}: {data['Close'].iloc[-1]}"
             else:
